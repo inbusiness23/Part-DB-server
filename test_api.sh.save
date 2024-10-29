@@ -1,0 +1,41 @@
+   #!/bin/bash
+   # Load token from .env.local
+   export $(cat .env.local | grep PARTDB_API_TOKEN)
+
+   # Test API connection
+   echo "Testing API connection..."
+   curl -X GET "http://localhost:8000/api/parts" \
+        -H "Authorization: Bearer $PARTDB_API_TOKEN" \
+        -H "Accept: application/json"
+
+   ./test_api.sh
+php -d memory_limit=-1 -S localhost:8000 -t public/
+   touch add_part.sh
+   chmod +x add_part.sh
+   nano add_part.sh
+   #!/bin/bash
+   # Load token from .env.local
+   export $(cat .env.local | grep PARTDB_API_TOKEN)
+
+   # JSON data for the new part
+   DATA='{
+     "name": "Test Resistor",
+     "description": "10k Ohm Resistor",
+     "tags": ["resistor", "10k"],
+     "mass": 0.1,
+     "ipn": "R-10K-0805",
+     "needs_review": false,
+     "favorite": false,
+     "manufacturing_status": "available",
+     "comment": "First part added via API"
+   }'
+
+   # Send POST request to create part
+   curl -X POST "http://localhost:8000/api/parts" \
+        -H "Authorization: Bearer $PARTDB_API_TOKEN" \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/json" \
+        -d "$DATA"
+
+   ./test_add.sh
+

@@ -113,7 +113,7 @@ parameters:
   env(DEFAULT_LANG): 'en'
   env(DEFAULT_TIMEZONE): 'Europe/Berlin'
   env(INSTANCE_NAME): 'Part-DB'
-  env(BASE_CURRENCY): 'EUR'
+  env(BASE_CURRENCY): 'USD'
   env(USE_GRAVATAR): '0'
   env(MAX_ATTACHMENT_FILE_SIZE): '100M'
 
